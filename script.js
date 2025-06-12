@@ -91,11 +91,31 @@ function extractFrom(cart){
  * @return: dimWeights array
  */
 function calcDimWeights(cart){
+   let weight = 0;
+   let volume = 0;
+   let dimWeight = 0;
+   let liters = 0;
     let dimWeights = [];
+    for(let i = 0; i < cart.length; i++){
+        volume = prompt("what is the volume of " + cart[i][0]);
+        liters=confirm("did you input liters? ");
+         if ( liters == true){
+            volume = volume*61.0237;
+         }
+    
+        dimWeight = volume/139;
+         weight = prompt("what is the weight of " + cart[i][0]);
+         if (dimWeight > weight){
+            dimWeights.push(dimWeight);
+         }
+         else{
+          dimWeights.push(weight);
+         }
+    }
     return dimWeights;
 }
 
-/* calcShipping(cart, dimWeights): Go through each item in the cart and calculate shipping from dimWeights. Total that up.  
+/* calcShipping( dimWeights): Go through each item in the cart and calculate shipping from dimWeights. Total that up.  
  * We will be shipping within Zone 1, Advantage, via USPS so rate is $1.60 per DimWeight.  So: Loop over each dimWeight, 
  * multiply by $.80 and add that to total shipping. 
  * @param: dimWeights array
@@ -103,6 +123,9 @@ function calcDimWeights(cart){
  */
 function calcShipping(dimWeights) {
     let totalShipping = 0;
+    for  (let i = 0; i < dimWeights.length; i++){
+        totalShipping += dimWeights[i] * .80;
+    }
     return totalShipping;
 }
 
